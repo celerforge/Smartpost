@@ -8,7 +8,9 @@ import { createPortal } from "react-dom";
 import { XToolBar } from "@/content/x/toolbar";
 import { useToolbarTarget } from "@/hooks/use-toolbar-target";
 
-export const config: PlasmoCSConfig = {};
+export const config: PlasmoCSConfig = {
+  matches: ["https://x.com/*"],
+};
 
 export const getStyle = () => {
   const style = document.createElement("style");

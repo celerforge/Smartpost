@@ -35,14 +35,14 @@ export function XPostOptimizer() {
     <button
       onClick={handleClick}
       disabled={loading}
-      className={`hover:bg-x-primary/10 flex h-9 w-9 items-center justify-center rounded-full ${
-        loading ? "cursor-not-allowed opacity-50" : ""
+      className={`sp-hover:bg-x-primary/10 sp-flex sp-h-9 sp-w-9 sp-items-center sp-justify-center sp-rounded-full ${
+        loading ? "sp-cursor-not-allowed sp-opacity-50" : ""
       }`}
       title="Optimize Post"
     >
       <WandSparkles
-        className={`relative top-[0.5px] h-[18px] w-[18px] ${
-          loading ? "animate-spin-slow" : ""
+        className={`sp-relative sp-top-[0.5px] sp-h-[18px] sp-w-[18px] ${
+          loading ? "sp-animate-spin-slow" : ""
         }`}
       />
     </button>

@@ -18,7 +18,7 @@ export function FormButton({
     <Button className={className} disabled={isSubmitting} {...props}>
       {isSubmitting ? (
         <>
-          <Icons.refreshCw className="mr-2 h-4 w-4 animate-spin" />
+          <Icons.refreshCw className="sp-mr-2 sp-h-4 sp-w-4 sp-animate-spin" />
           {pendingText || "Processing..."}
         </>
       ) : (

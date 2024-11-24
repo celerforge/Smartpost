@@ -29,7 +29,7 @@ export default function Page() {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          <main className="p-4">
+          <main className="sp-p-4">
             <CurrentComponent />
           </main>
           <Toaster richColors />

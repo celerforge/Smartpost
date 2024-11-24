@@ -83,9 +83,10 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply sp-border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply sp-bg-background sp-text-foreground;
   }
 }
+

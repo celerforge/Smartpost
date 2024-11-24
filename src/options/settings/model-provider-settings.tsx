@@ -142,7 +142,7 @@ function ProviderConfigDialog({
           <DialogTitle>Configure {provider.name}</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="sp-space-y-4">
             <FormField
               control={form.control}
               name="apiKey"
@@ -197,7 +197,7 @@ function ProviderConfigDialog({
                 </FormItem>
               )}
             />
-            <div className="flex justify-end space-x-2">
+            <div className="sp-flex sp-justify-end sp-space-x-2">
               <Button
                 type="button"
                 variant="outline"
@@ -219,37 +219,39 @@ export function ModelProviderSettings() {
   const [configuring, setConfiguring] = useState<Provider["id"] | null>(null);
 
   return (
-    <div className="space-y-6">
+    <div className="sp-space-y-6">
       <div>
-        <h3 className="text-lg font-medium">AI Model Provider Settings</h3>
-        <p className="text-muted-foreground text-sm">
+        <h3 className="sp-text-lg sp-font-medium">
+          AI Model Provider Settings
+        </h3>
+        <p className="sp-text-muted-foreground sp-text-sm">
           Configure and manage your AI service providers
         </p>
       </div>
 
-      <div className="grid gap-4">
+      <div className="sp-grid sp-gap-4">
         {PROVIDERS.map((provider) => {
           const isAvailable = settings.providers[provider.id].available;
 
           return (
             <div
               key={provider.id}
-              className="flex items-center justify-between rounded-lg border p-4"
+              className="sp-flex sp-items-center sp-justify-between sp-rounded-lg sp-border sp-p-4"
             >
-              <div className="flex items-center space-x-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h4 className="text-base">{provider.name}</h4>
+              <div className="sp-flex sp-items-center sp-space-x-4">
+                <div className="sp-space-y-1">
+                  <div className="sp-flex sp-items-center sp-gap-2">
+                    <h4 className="sp-text-base">{provider.name}</h4>
                     <span
                       className={cn(
-                        "text-sm",
-                        isAvailable ? "text-green-600" : "text-red-600",
+                        "sp-text-sm",
+                        isAvailable ? "sp-text-green-600" : "sp-text-red-600",
                       )}
                     >
                       • {isAvailable ? "Connected" : "Not Connected"}
                     </span>
                   </div>
-                  <p className="text-secondary-foreground text-sm">
+                  <p className="sp-text-secondary-foreground sp-text-sm">
                     {provider.description}
                   </p>
                 </div>

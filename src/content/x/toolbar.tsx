@@ -4,7 +4,7 @@ import { SettingsProvider } from "@/contexts/settings-context";
 export function XToolBar() {
   return (
     <SettingsProvider>
-      <div className="text-x-primary flex h-[34px] items-center gap-3">
+      <div className="sp-text-x-primary sp-flex sp-h-[34px] sp-items-center sp-gap-3">
         <XPostOptimizer />
       </div>
     </SettingsProvider>

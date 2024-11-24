@@ -2,11 +2,11 @@ import "@/style.css";
 
 function IndexPopup() {
   return (
-    <div className="bg-white flex h-24 w-40 items-center justify-center rounded-lg p-4 shadow-md">
+    <div className="sp-bg-white sp-flex sp-h-24 sp-w-40 sp-items-center sp-justify-center sp-rounded-lg sp-p-4 sp-shadow-md">
       <a
         href="/options.html"
         target="_blank"
-        className="text-blue-600 hover:text-blue-800 text-sm underline transition-colors"
+        className="sp-text-blue-600 hover:sp-text-blue-800 sp-text-sm sp-underline sp-transition-colors"
       >
         Settings
       </a>

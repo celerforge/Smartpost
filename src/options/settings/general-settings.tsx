@@ -53,10 +53,10 @@ export function GeneralSettings() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="sp-space-y-6">
         <div>
-          <h3 className="text-lg font-medium">General Settings</h3>
-          <p className="text-muted-foreground text-sm">
+          <h3 className="sp-text-lg sp-font-medium">General Settings</h3>
+          <p className="sp-text-muted-foreground sp-text-sm">
             Configure the general settings for the extension
           </p>
         </div>
@@ -102,8 +102,9 @@ export function GeneralSettings() {
               <FormControl>
                 <Textarea
                   placeholder="Enter system prompt..."
-                  className="min-h-[200px]"
+                  className="sp-min-h-[200px]"
                   {...field}
+                  rows={15}
                 />
               </FormControl>
               <FormMessage />

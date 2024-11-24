@@ -18,7 +18,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenuButton size="lg" asChild>
           <a href="#">
-            <div className="text-lg font-medium">SmartPost</div>
+            <div className="sp-text-lg sp-font-medium">SmartPost</div>
           </a>
         </SidebarMenuButton>
       </SidebarHeader>
