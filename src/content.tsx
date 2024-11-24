@@ -6,7 +6,8 @@ import type { PlasmoCSConfig } from "plasmo";
 import { createPortal } from "react-dom";
 
 import { XToolBar } from "@/content/x/toolbar";
-import { useToolbarTarget } from "@/hooks/use-toolbar-target";
+import { useFindElement } from "@/hooks/use-find-element";
+import { Toaster } from "sonner";
 
 export const config: PlasmoCSConfig = {
   matches: ["https://x.com/*"],
@@ -19,6 +20,17 @@ export const getStyle = () => {
 };
 
 export default function Content() {
-  const targetElement = useToolbarTarget();
-  return targetElement ? createPortal(<XToolBar />, targetElement) : null;
+  const selector = () => {
+    const toolBar = document.querySelector('div[data-testid="toolBar"]');
+    const target = toolBar?.querySelector('div[data-testid="ScrollSnap-List"]');
+    return target;
+  };
+  const targetElement = useFindElement(selector);
+
+  return (
+    <>
+      {targetElement ? createPortal(<XToolBar />, targetElement) : null}
+      {createPortal(<Toaster richColors />, document.body)}
+    </>
+  );
 }

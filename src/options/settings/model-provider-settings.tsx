@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSettings } from "@/contexts/settings-context";
-import { getModel } from "@/lib/ai";
+import { createAIClient } from "@/lib/ai";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { generateText } from "ai";
@@ -118,7 +118,8 @@ function ProviderConfigDialog({
 
   const testProvider = async (config: ProviderFormValues) => {
     try {
-      const model = getModel(settings);
+      const client = createAIClient(provider.id, config);
+      const model = client(config.model);
 
       await generateText({
         model,

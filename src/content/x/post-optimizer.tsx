@@ -15,20 +15,22 @@ export function XPostOptimizer() {
       'span[data-text="true"]',
     ) as HTMLElement;
     if (textElement) {
-      console.debug(`enhancing ${textElement.textContent}...`);
       await enhancePost(textElement.textContent, settings)
         .then((text) => {
+          console.debug(`enhanced ${textElement.textContent} to ${text}`);
           textElement.textContent = text;
           textElement.click();
           textElement.dispatchEvent(new Event("input", { bubbles: true }));
         })
         .catch((error) => {
-          toast.error(error.message);
+          console.error(`Error enhancing post: ${error}`);
+          toast.error(`Error enhancing post: ${error}`);
         })
         .finally(() => {
           setLoading(false);
         });
     }
+    setLoading(false);
   }
 
   return (

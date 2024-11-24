@@ -2,6 +2,7 @@ import { FormButton } from "@/components/form-button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,6 +18,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import type { ProviderId } from "@/contexts/settings-context";
 import { useSettings } from "@/contexts/settings-context";
+import { RoutePaths } from "@/options/route";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -66,7 +68,7 @@ export function GeneralSettings() {
           name="activeProvider"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Active Provider</FormLabel>
+              <FormLabel>LLM Model Provider</FormLabel>
               <Select
                 value={field.value || "none"}
                 onValueChange={(value) =>
@@ -88,6 +90,18 @@ export function GeneralSettings() {
                     ))}
                 </SelectContent>
               </Select>
+              {Object.entries(settings.providers).filter(
+                ([_, provider]) => provider.available,
+              ).length === 0 && (
+                <FormDescription>
+                  No model providers are available. Please configure a model
+                  provider first in the{" "}
+                  <a href={RoutePaths.MODEL_PROVIDER} className="sp-underline">
+                    Providers tab
+                  </a>
+                  .
+                </FormDescription>
+              )}
               <FormMessage />
             </FormItem>
           )}

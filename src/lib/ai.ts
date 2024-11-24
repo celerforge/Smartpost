@@ -1,4 +1,8 @@
-import type { Settings } from "@/contexts/settings-context";
+import type {
+  ProviderId,
+  ProviderSettings,
+  Settings,
+} from "@/contexts/settings-context";
 import { createOpenAI } from "@ai-sdk/openai";
 import { generateText } from "ai";
 
@@ -21,9 +25,26 @@ OUTPUT RULES:
 
 REMEMBER: Your response must contain ONLY the optimized version of the input text.`;
 
-export function getModel(settings: Settings) {
-  const provider = settings.providers[settings.general.activeProvider];
+export function createAIClient(
+  providerId: ProviderId,
+  provider: ProviderSettings,
+) {
+  if (providerId === "openai") {
+    return createOpenAI({
+      apiKey: provider.apiKey,
+      baseURL: provider.baseUrl,
+    });
+  } else if (providerId === "anthropic") {
+    return createAnthropic({
+      apiKey: provider.apiKey,
+      baseURL: provider.baseUrl,
+    });
+  }
+  throw new Error("Unsupported provider");
+}
 
+export function getActiveModel(settings: Settings) {
+  const provider = settings.providers[settings.general.activeProvider];
   if (!provider?.apiKey) {
     throw new Error("No API key found, please set it in the settings.");
   }
@@ -34,30 +55,16 @@ export function getModel(settings: Settings) {
     );
   }
 
-  if (settings.general.activeProvider === "openai") {
-    const client = createOpenAI({
-      apiKey: provider.apiKey,
-      baseURL: provider.baseUrl,
-    });
-    return client(provider.model);
-  } else if (settings.general.activeProvider === "anthropic") {
-    const client = createAnthropic({
-      apiKey: provider.apiKey,
-      baseURL: provider.baseUrl,
-    });
-    return client(provider.model);
-  }
-
-  throw new Error("Unsupported provider");
+  const client = createAIClient(settings.general.activeProvider, provider);
+  return client(provider.model);
 }
 
 export async function enhancePost(post: string, settings: Settings) {
   const systemPrompt = settings.general.systemPrompt;
-
-  const model = getModel(settings);
+  const model = getActiveModel(settings);
 
   const { text } = await generateText({
-    model: model,
+    model,
     messages: [
       { role: "system", content: systemPrompt },
       {
@@ -66,7 +73,5 @@ export async function enhancePost(post: string, settings: Settings) {
       },
     ],
   });
-  console.debug(`enhanced ${post} to ${text}`);
-
   return text;
 }
