@@ -1,52 +1,71 @@
-import { useSettings } from "@/contexts/settings-context";
+import { ToolbarButton } from "@/content/toolbar-button";
+import { getXPostTextElement, updateXPostText } from "@/content/x/dom";
+import { useStorage } from "@/contexts/storage-context";
 import { enhancePost } from "@/lib/ai";
+import { RoutePaths } from "@/options/route";
 import { WandSparkles } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export function XPostOptimizer() {
-  const { settings } = useSettings();
+  const { storage } = useStorage();
   const [loading, setLoading] = useState(false);
 
   async function handleClick() {
     setLoading(true);
 
-    const textElement = document.querySelector(
-      'span[data-text="true"]',
-    ) as HTMLElement;
-    if (textElement) {
-      await enhancePost(textElement.textContent, settings)
-        .then((text) => {
-          console.debug(`enhanced ${textElement.textContent} to ${text}`);
-          textElement.textContent = text;
-          textElement.click();
-          textElement.dispatchEvent(new Event("input", { bubbles: true }));
-        })
-        .catch((error) => {
-          console.error(`Error enhancing post: ${error}`);
-          toast.error(`Error enhancing post: ${error}`);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+    try {
+      if (
+        !storage.settings.general.activeProvider ||
+        !storage.settings.providers[storage.settings.general.activeProvider]
+          .available
+      ) {
+        const extensionId = chrome.runtime.id;
+        toast.error(
+          `Please configure and select an AI provider in the options page.`,
+          {
+            action: {
+              label: "Configure",
+              onClick: () =>
+                window.open(
+                  `chrome-extension://${extensionId}/options.html${RoutePaths.SETTINGS_MODEL_PROVIDER}`,
+                ),
+            },
+          },
+        );
+        return;
+      }
+
+      const textElement = getXPostTextElement();
+      const enhancedText = await enhancePost(
+        textElement.textContent,
+        storage.settings,
+      );
+      console.debug(`Enhanced text: ${enhancedText}`);
+      updateXPostText(enhancedText);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Failed to enhance post.";
+      console.error(error);
+      toast.error(message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (
-    <button
+    <ToolbarButton
       onClick={handleClick}
       disabled={loading}
-      className={`sp-hover:bg-x-primary/10 sp-flex sp-h-9 sp-w-9 sp-items-center sp-justify-center sp-rounded-full ${
-        loading ? "sp-cursor-not-allowed sp-opacity-50" : ""
-      }`}
       title="Optimize Post"
-    >
-      <WandSparkles
-        className={`sp-relative sp-top-[0.5px] sp-h-[18px] sp-w-[18px] ${
-          loading ? "sp-animate-spin-slow" : ""
-        }`}
-      />
-    </button>
+      loading={loading}
+      icon={
+        <WandSparkles
+          className={`sp-relative sp-top-[0.5px] sp-h-[18px] sp-w-[18px] ${
+            loading ? "sp-animate-spin-slow" : ""
+          }`}
+        />
+      }
+    />
   );
 }

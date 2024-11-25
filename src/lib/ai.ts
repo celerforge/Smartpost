@@ -1,8 +1,9 @@
 import type {
-  ProviderId,
   ProviderSettings,
+  ProviderType,
   Settings,
-} from "@/contexts/settings-context";
+  Tool,
+} from "@/contexts/storage-context";
 import { createOpenAI } from "@ai-sdk/openai";
 import { generateText } from "ai";
 
@@ -26,7 +27,7 @@ OUTPUT RULES:
 REMEMBER: Your response must contain ONLY the optimized version of the input text.`;
 
 export function createAIClient(
-  providerId: ProviderId,
+  providerId: ProviderType,
   provider: ProviderSettings,
 ) {
   if (providerId === "openai") {
@@ -73,5 +74,25 @@ export async function enhancePost(post: string, settings: Settings) {
       },
     ],
   });
+  return text;
+}
+
+const TOOL_INPUT_PLACEHOLDER = "{post}";
+
+export async function runTool(
+  tool: Tool,
+  input: string | null,
+  settings: Settings,
+) {
+  const model = getActiveModel(settings);
+
+  const prompt = tool.prompt.replace(TOOL_INPUT_PLACEHOLDER, `"${input}"`);
+  console.debug(`Running tool ${tool.name}: ${prompt}`);
+  const { text } = await generateText({
+    model,
+    temperature: 1,
+    messages: [{ role: "user", content: prompt }],
+  });
+
   return text;
 }

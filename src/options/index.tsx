@@ -1,6 +1,6 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
-import { SettingsProvider } from "@/contexts/settings-context";
+import { StorageProvider } from "@/contexts/storage-context";
 import { AppSidebar } from "@/options/app-sidebar";
 import type { RouteKey } from "@/options/route";
 import { DEFAULT_ROUTE, ROUTES_MAP } from "@/options/route";
@@ -25,7 +25,7 @@ export default function Page() {
   }, []);
   const CurrentComponent = ROUTES_MAP[currentPage];
   return (
-    <SettingsProvider>
+    <StorageProvider>
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
@@ -35,6 +35,6 @@ export default function Page() {
           <Toaster richColors />
         </SidebarInset>
       </SidebarProvider>
-    </SettingsProvider>
+    </StorageProvider>
   );
 }

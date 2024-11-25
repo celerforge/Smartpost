@@ -1,6 +1,7 @@
 import { GeneralSettings } from "@/options/settings/general-settings";
 import { ModelProviderSettings } from "@/options/settings/model-provider-settings";
-import { Settings2 } from "lucide-react";
+import { XTools } from "@/options/tools/x-tools";
+import { Paintbrush, Settings2, X } from "lucide-react";
 
 export type NavItem = {
   title: string;
@@ -11,25 +12,42 @@ export type NavItem = {
 };
 
 export const enum RoutePaths {
-  GENERAL = "#settings/general",
-  MODEL_PROVIDER = "#settings/model-provider",
+  TOOLS = "#tools",
+  TOOLS_X = "#tools/x",
+
+  SETTINGS = "#settings",
+  SETTINGS_GENERAL = "#settings/general",
+  SETTINGS_MODEL_PROVIDER = "#settings/model-provider",
 }
 
 export const ROUTES = {
   navMain: [
     {
+      title: "Tools",
+      url: RoutePaths.TOOLS,
+      icon: Paintbrush,
+      isActive: true,
+      items: [
+        {
+          title: "X (Twitter)",
+          url: RoutePaths.TOOLS_X,
+          icon: X,
+        },
+      ],
+    },
+    {
       title: "Settings",
-      url: "#settings",
+      url: RoutePaths.SETTINGS,
       icon: Settings2,
       isActive: true,
       items: [
         {
           title: "General",
-          url: RoutePaths.GENERAL,
+          url: RoutePaths.SETTINGS_GENERAL,
         },
         {
           title: "Model Provider",
-          url: RoutePaths.MODEL_PROVIDER,
+          url: RoutePaths.SETTINGS_MODEL_PROVIDER,
         },
       ],
     },
@@ -37,9 +55,10 @@ export const ROUTES = {
 };
 
 export const ROUTES_MAP = {
-  [RoutePaths.GENERAL]: GeneralSettings,
-  [RoutePaths.MODEL_PROVIDER]: ModelProviderSettings,
+  [RoutePaths.SETTINGS_GENERAL]: GeneralSettings,
+  [RoutePaths.SETTINGS_MODEL_PROVIDER]: ModelProviderSettings,
+  [RoutePaths.TOOLS_X]: XTools,
 } as const;
 
 export type RouteKey = keyof typeof ROUTES_MAP;
-export const DEFAULT_ROUTE = Object.keys(ROUTES_MAP)[0] as RouteKey;
+export const DEFAULT_ROUTE = RoutePaths.TOOLS_X;

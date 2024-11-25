@@ -16,8 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import type { ProviderId } from "@/contexts/settings-context";
-import { useSettings } from "@/contexts/settings-context";
+import { useStorage, type ProviderType } from "@/contexts/storage-context";
 import { RoutePaths } from "@/options/route";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -32,21 +31,21 @@ const generalSettingsSchema = z.object({
 type GeneralSettingsForm = z.infer<typeof generalSettingsSchema>;
 
 export function GeneralSettings() {
-  const { settings, updateGeneral } = useSettings();
+  const { storage, saveSystemPrompt, selectProvider } = useStorage();
+  console.log(storage.settings.general.activeProvider);
   const form = useForm<GeneralSettingsForm>({
     resolver: zodResolver(generalSettingsSchema),
     defaultValues: {
-      activeProvider: settings.general.activeProvider,
-      systemPrompt: settings.general.systemPrompt,
+      activeProvider: storage.settings.general.activeProvider,
+      systemPrompt: storage.settings.general.systemPrompt,
     },
   });
 
   const onSubmit = async (data: GeneralSettingsForm) => {
     try {
-      await updateGeneral({
-        activeProvider: data.activeProvider as ProviderId | null,
-        systemPrompt: data.systemPrompt,
-      });
+      console.log("save", data.activeProvider);
+      await selectProvider(data.activeProvider as ProviderType | null);
+      await saveSystemPrompt(data.systemPrompt);
       toast.success("Settings saved successfully.");
     } catch (error) {
       toast.error("Failed to save settings. ");
@@ -81,7 +80,7 @@ export function GeneralSettings() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {Object.entries(settings.providers)
+                  {Object.entries(storage.settings.providers)
                     .filter(([_, provider]) => provider.available)
                     .map(([id]) => (
                       <SelectItem key={id} value={id}>
@@ -90,13 +89,16 @@ export function GeneralSettings() {
                     ))}
                 </SelectContent>
               </Select>
-              {Object.entries(settings.providers).filter(
+              {Object.entries(storage.settings.providers).filter(
                 ([_, provider]) => provider.available,
               ).length === 0 && (
                 <FormDescription>
                   No model providers are available. Please configure a model
                   provider first in the{" "}
-                  <a href={RoutePaths.MODEL_PROVIDER} className="sp-underline">
+                  <a
+                    href={RoutePaths.SETTINGS_MODEL_PROVIDER}
+                    className="sp-underline"
+                  >
                     Providers tab
                   </a>
                   .

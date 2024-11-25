@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSettings } from "@/contexts/settings-context";
+import { useStorage } from "@/contexts/storage-context";
 import { createAIClient } from "@/lib/ai";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -91,20 +91,20 @@ function ProviderConfigDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const { settings, updateProvider } = useSettings();
+  const { storage, saveProviderConfig } = useStorage();
   const form = useForm<ProviderFormValues>({
     resolver: zodResolver(providerConfigSchema),
     defaultValues: {
-      apiKey: settings.providers[provider.id].apiKey || "",
-      baseUrl: settings.providers[provider.id].baseUrl || "",
-      model: settings.providers[provider.id].model || "",
-      available: settings.providers[provider.id].available || true,
+      apiKey: storage.settings.providers[provider.id].apiKey || "",
+      baseUrl: storage.settings.providers[provider.id].baseUrl || "",
+      model: storage.settings.providers[provider.id].model || "",
+      available: storage.settings.providers[provider.id].available || true,
     },
   });
 
   const onSubmit = async (data: ProviderFormValues) => {
     const isAvailable = await testProvider(data);
-    await updateProvider(provider.id, {
+    await saveProviderConfig(provider.id, {
       apiKey: data.apiKey,
       baseUrl: data.baseUrl,
       model: data.model,
@@ -216,7 +216,7 @@ function ProviderConfigDialog({
 }
 
 export function ModelProviderSettings() {
-  const { settings } = useSettings();
+  const { storage } = useStorage();
   const [configuring, setConfiguring] = useState<Provider["id"] | null>(null);
 
   return (
@@ -232,7 +232,7 @@ export function ModelProviderSettings() {
 
       <div className="sp-grid sp-gap-4">
         {PROVIDERS.map((provider) => {
-          const isAvailable = settings.providers[provider.id].available;
+          const isAvailable = storage.settings.providers[provider.id].available;
 
           return (
             <div
