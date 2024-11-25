@@ -9,12 +9,32 @@ import {
   type ReactNode,
 } from "react";
 
-export interface ProviderSettings {
+interface BaseLLMProviderSettings {
   apiKey?: string;
-  baseUrl?: string;
   model?: string;
   available?: boolean;
 }
+
+export interface SmartpostProviderSettings extends BaseLLMProviderSettings {
+  type: "smartpost";
+}
+
+export interface OpenAIProviderSettings extends BaseLLMProviderSettings {
+  type: "openai";
+  baseUrl?: string;
+}
+
+export interface AnthropicProviderSettings extends BaseLLMProviderSettings {
+  type: "anthropic";
+  baseUrl?: string;
+}
+
+export type LLMProviderSettings =
+  | SmartpostProviderSettings
+  | OpenAIProviderSettings
+  | AnthropicProviderSettings;
+
+export type LLMProviderType = LLMProviderSettings["type"];
 
 export interface Tool {
   id: string;
@@ -23,13 +43,10 @@ export interface Tool {
 }
 
 export interface Settings {
-  providers: {
-    openai: ProviderSettings;
-    anthropic: ProviderSettings;
-  };
+  providers: Record<LLMProviderType, LLMProviderSettings>;
   general: {
     systemPrompt: string;
-    activeProvider: ProviderType | null;
+    activeProvider: LLMProviderType | null;
   };
 }
 
@@ -39,8 +56,6 @@ export interface Storage {
     x: Tool[];
   };
 }
-
-export type ProviderType = keyof Storage["settings"]["providers"];
 export type ToolPlatformType = keyof Storage["tools"];
 
 interface StorageContextType {
@@ -49,7 +64,7 @@ interface StorageContextType {
 
   // Provider Configuration
   saveProviderConfig: (
-    provider: ProviderType,
+    provider: LLMProviderType,
     config: {
       apiKey: string;
       baseUrl?: string;
@@ -60,7 +75,7 @@ interface StorageContextType {
 
   // General Settings
   saveSystemPrompt: (prompt: string) => Promise<void>;
-  selectProvider: (provider: ProviderType | null) => Promise<void>;
+  selectProvider: (provider: LLMProviderType | null) => Promise<void>;
 
   // Tool Management
   addTool: (
@@ -78,13 +93,23 @@ interface StorageContextType {
 const DEFAULT_STORAGE: Storage = {
   settings: {
     providers: {
-      openai: {
+      smartpost: {
+        type: "smartpost",
         apiKey: "",
         model: "gpt-4o-mini",
         available: false,
       },
-      anthropic: {
+      openai: {
+        type: "openai",
         apiKey: "",
+        model: "gpt-4o-mini",
+        baseUrl: "",
+        available: false,
+      },
+      anthropic: {
+        type: "anthropic",
+        apiKey: "",
+        baseUrl: "",
         model: "claude-3-haiku-20240307",
         available: false,
       },
@@ -117,10 +142,58 @@ const STORAGE_KEY = "storage" as const;
 class StorageManager {
   private storage = new PlasmoStorage();
 
+  // Helper function to deeply merge stored data with default values
+  private mergeWithDefaults(
+    stored: Partial<Storage>,
+    defaults: Storage,
+  ): Storage {
+    const merged = { ...defaults };
+
+    if (stored.settings) {
+      // Merge provider settings
+      if (stored.settings.providers) {
+        Object.keys(stored.settings.providers).forEach((provider) => {
+          if (provider in merged.settings.providers) {
+            merged.settings.providers[provider as LLMProviderType] = {
+              ...merged.settings.providers[provider as LLMProviderType],
+              ...stored.settings.providers[provider as LLMProviderType],
+            };
+          }
+        });
+      }
+
+      // Merge general settings
+      if (stored.settings.general) {
+        merged.settings.general = {
+          ...merged.settings.general,
+          ...stored.settings.general,
+        };
+      }
+    }
+
+    // Merge tools
+    if (stored.tools) {
+      merged.tools = {
+        ...merged.tools,
+        ...stored.tools,
+      };
+    }
+
+    return merged;
+  }
+
   // Load initial state from storage
   async load(): Promise<Storage> {
     const data = await this.storage.get(STORAGE_KEY);
-    return data ? JSON.parse(data) : DEFAULT_STORAGE;
+    if (!data) return DEFAULT_STORAGE;
+
+    try {
+      const stored = JSON.parse(data) as Partial<Storage>;
+      return this.mergeWithDefaults(stored, DEFAULT_STORAGE);
+    } catch (error) {
+      console.error("Failed to parse storage data:", error);
+      return DEFAULT_STORAGE;
+    }
   }
 
   // Persist state to storage
@@ -142,8 +215,13 @@ export const StorageProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const saveProviderConfig = async (
-    provider: ProviderType,
-    config: ProviderSettings,
+    provider: LLMProviderType,
+    config: {
+      apiKey: string;
+      baseUrl?: string;
+      model: string;
+      available: boolean;
+    },
   ) => {
     const newState = {
       ...state,
@@ -171,7 +249,7 @@ export const StorageProvider = ({ children }: { children: ReactNode }) => {
     setState(newState);
   };
 
-  const selectProvider = async (provider: ProviderType | null) => {
+  const selectProvider = async (provider: LLMProviderType | null) => {
     const newState = {
       ...state,
       settings: {

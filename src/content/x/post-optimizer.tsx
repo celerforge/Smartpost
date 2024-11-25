@@ -22,13 +22,13 @@ export function XPostOptimizer() {
       ) {
         const extensionId = chrome.runtime.id;
         toast.error(
-          `Please configure and select an AI provider in the options page.`,
+          `Please configure and select an LLM provider in the options page.`,
           {
             action: {
               label: "Configure",
               onClick: () =>
                 window.open(
-                  `chrome-extension://${extensionId}/options.html${RoutePaths.SETTINGS_MODEL_PROVIDER}`,
+                  `chrome-extension://${extensionId}/options.html${RoutePaths.SETTINGS_LLM_PROVIDER}`,
                 ),
             },
           },

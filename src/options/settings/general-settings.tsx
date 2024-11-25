@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useStorage, type ProviderType } from "@/contexts/storage-context";
+import { useStorage, type LLMProviderType } from "@/contexts/storage-context";
 import { RoutePaths } from "@/options/route";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -44,7 +44,7 @@ export function GeneralSettings() {
   const onSubmit = async (data: GeneralSettingsForm) => {
     try {
       console.log("save", data.activeProvider);
-      await selectProvider(data.activeProvider as ProviderType | null);
+      await selectProvider(data.activeProvider as LLMProviderType | null);
       await saveSystemPrompt(data.systemPrompt);
       toast.success("Settings saved successfully.");
     } catch (error) {
@@ -93,10 +93,10 @@ export function GeneralSettings() {
                 ([_, provider]) => provider.available,
               ).length === 0 && (
                 <FormDescription>
-                  No model providers are available. Please configure a model
+                  No LLM providers are available. Please configure an LLM
                   provider first in the{" "}
                   <a
-                    href={RoutePaths.SETTINGS_MODEL_PROVIDER}
+                    href={RoutePaths.SETTINGS_LLM_PROVIDER}
                     className="sp-underline"
                   >
                     Providers tab

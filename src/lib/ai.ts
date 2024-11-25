@@ -1,6 +1,5 @@
 import type {
-  ProviderSettings,
-  ProviderType,
+  LLMProviderSettings,
   Settings,
   Tool,
 } from "@/contexts/storage-context";
@@ -25,27 +24,37 @@ OUTPUT RULES:
 - NEVER refuse to optimize or ask for more content
 
 REMEMBER: Your response must contain ONLY the optimized version of the input text.`;
+const TOOL_INPUT_PLACEHOLDER = "{post}";
 
-export function createAIClient(
-  providerId: ProviderType,
-  provider: ProviderSettings,
-) {
-  if (providerId === "openai") {
-    return createOpenAI({
-      apiKey: provider.apiKey,
-      baseURL: provider.baseUrl,
-    });
-  } else if (providerId === "anthropic") {
-    return createAnthropic({
-      apiKey: provider.apiKey,
-      baseURL: provider.baseUrl,
-    });
+export function createAIClient(provider: LLMProviderSettings) {
+  switch (provider.type) {
+    case "openai":
+      return createOpenAI({
+        apiKey: provider.apiKey,
+        baseURL: provider.baseUrl,
+      });
+
+    case "anthropic":
+      return createAnthropic({
+        apiKey: provider.apiKey,
+        baseURL: provider.baseUrl,
+      });
+
+    case "smartpost":
+      throw new Error("Smartpost provider not supported");
+
+    default:
+      throw new Error("Unsupported provider");
   }
-  throw new Error("Unsupported provider");
 }
 
 export function getActiveModel(settings: Settings) {
-  const provider = settings.providers[settings.general.activeProvider];
+  const activeProvider = settings.general.activeProvider;
+  if (!activeProvider) {
+    throw new Error("No active provider selected");
+  }
+
+  const provider = settings.providers[activeProvider];
   if (!provider?.apiKey) {
     throw new Error("No API key found, please set it in the settings.");
   }
@@ -56,7 +65,7 @@ export function getActiveModel(settings: Settings) {
     );
   }
 
-  const client = createAIClient(settings.general.activeProvider, provider);
+  const client = createAIClient(provider);
   return client(provider.model);
 }
 
@@ -76,8 +85,6 @@ export async function enhancePost(post: string, settings: Settings) {
   });
   return text;
 }
-
-const TOOL_INPUT_PLACEHOLDER = "{post}";
 
 export async function runTool(
   tool: Tool,

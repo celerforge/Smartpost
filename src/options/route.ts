@@ -1,5 +1,5 @@
 import { GeneralSettings } from "@/options/settings/general-settings";
-import { ModelProviderSettings } from "@/options/settings/model-provider-settings";
+import { LLMProviderSettings } from "@/options/settings/llm-provider-settings";
 import { XTools } from "@/options/tools/x-tools";
 import { Paintbrush, Settings2, X } from "lucide-react";
 
@@ -17,7 +17,7 @@ export const enum RoutePaths {
 
   SETTINGS = "#settings",
   SETTINGS_GENERAL = "#settings/general",
-  SETTINGS_MODEL_PROVIDER = "#settings/model-provider",
+  SETTINGS_LLM_PROVIDER = "#settings/llm-provider",
 }
 
 export const ROUTES = {
@@ -46,8 +46,8 @@ export const ROUTES = {
           url: RoutePaths.SETTINGS_GENERAL,
         },
         {
-          title: "Model Provider",
-          url: RoutePaths.SETTINGS_MODEL_PROVIDER,
+          title: "LLM Provider",
+          url: RoutePaths.SETTINGS_LLM_PROVIDER,
         },
       ],
     },
@@ -56,7 +56,7 @@ export const ROUTES = {
 
 export const ROUTES_MAP = {
   [RoutePaths.SETTINGS_GENERAL]: GeneralSettings,
-  [RoutePaths.SETTINGS_MODEL_PROVIDER]: ModelProviderSettings,
+  [RoutePaths.SETTINGS_LLM_PROVIDER]: LLMProviderSettings,
   [RoutePaths.TOOLS_X]: XTools,
 } as const;
 
