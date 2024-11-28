@@ -2,6 +2,7 @@ import { ToolbarButton } from "@/content/toolbar-button";
 import { getXPostTextElement, updateXPostText } from "@/content/x/dom";
 import { useStorage } from "@/contexts/storage-context";
 import { enhancePost } from "@/lib/ai";
+import { EXTENSION_URL } from "@/lib/env";
 import { RoutePaths } from "@/options/route";
 import { WandSparkles } from "lucide-react";
 import { useState } from "react";
@@ -20,7 +21,6 @@ export function XPostOptimizer() {
         !storage.settings.providers[storage.settings.general.activeProvider]
           .available
       ) {
-        const extensionId = chrome.runtime.id;
         toast.error(
           `Please configure and select an LLM provider in the options page.`,
           {
@@ -28,7 +28,7 @@ export function XPostOptimizer() {
               label: "Configure",
               onClick: () =>
                 window.open(
-                  `chrome-extension://${extensionId}/options.html${RoutePaths.SETTINGS_LLM_PROVIDER}`,
+                  `${EXTENSION_URL}/options.html${RoutePaths.SETTINGS_LLM_PROVIDER}`,
                 ),
             },
           },

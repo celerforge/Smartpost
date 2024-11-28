@@ -12,6 +12,7 @@ import {
 } from "@/content/x/dom";
 import { useStorage, type Tool } from "@/contexts/storage-context";
 import { runTool } from "@/lib/ai";
+import { EXTENSION_URL } from "@/lib/env";
 import { RoutePaths } from "@/options/route";
 import { Paintbrush } from "lucide-react";
 import { useState } from "react";
@@ -58,7 +59,7 @@ export function XTools() {
           <DropdownMenuItem>
             <span className="sp-text-muted-foreground">No tools yet.</span>{" "}
             <a
-              href={`chrome-extension://${chrome.runtime.id}/options.html${RoutePaths.TOOLS_X}`}
+              href={`${EXTENSION_URL}/options.html${RoutePaths.TOOLS_X}`}
               className="sp-text-primary sp-underline sp-font-medium"
               target="_blank"
               rel="noopener noreferrer"

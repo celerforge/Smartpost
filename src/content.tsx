@@ -7,6 +7,8 @@ import { createPortal } from "react-dom";
 
 import { XToolBar } from "@/content/x/toolbar";
 import { useFindElement } from "@/hooks/use-find-element";
+import { CLERK_PUBLISHABLE_KEY, EXTENSION_URL } from "@/lib/env";
+import { ClerkProvider } from "@clerk/chrome-extension";
 import { Toaster } from "sonner";
 
 export const config: PlasmoCSConfig = {
@@ -28,9 +30,14 @@ export default function Content() {
   const targetElement = useFindElement(selector);
 
   return (
-    <>
+    <ClerkProvider
+      publishableKey={CLERK_PUBLISHABLE_KEY}
+      afterSignOutUrl={`${EXTENSION_URL}/popup.html`}
+      signInFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
+      signUpFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
+    >
       {targetElement ? createPortal(<XToolBar />, targetElement) : null}
       {createPortal(<Toaster richColors />, document.body)}
-    </>
+    </ClerkProvider>
   );
 }

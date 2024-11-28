@@ -1,114 +1,46 @@
-"use client";
-
+import { Button } from "@/components/ui/button";
 import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  useSession,
+} from "@clerk/chrome-extension";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar";
+export function NavUser() {
+  const { isLoaded, session } = useSession();
+  const isPro =
+    isLoaded &&
+    session?.user?.publicMetadata?.["subscription"]?.["endTime"] >
+      Math.floor(Date.now() / 1000);
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
-  const { isMobile } = useSidebar();
+  if (!isLoaded) return null;
 
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:sp-bg-sidebar-accent data-[state=open]:sp-text-sidebar-accent-foreground"
-            >
-              <Avatar className="sp-h-8 sp-w-8 sp-rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="sp-rounded-lg">CN</AvatarFallback>
-              </Avatar>
-              <div className="sp-grid sp-flex-1 sp-text-left sp-text-sm sp-leading-tight">
-                <span className="sp-truncate sp-font-semibold">
-                  {user.name}
-                </span>
-                <span className="sp-truncate sp-text-xs">{user.email}</span>
-              </div>
-              <ChevronsUpDown className="sp-ml-auto sp-size-4" />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="sp-w-[--radix-dropdown-menu-trigger-width] sp-min-w-56 sp-rounded-lg"
-            side={isMobile ? "bottom" : "right"}
-            align="end"
-            sideOffset={4}
-          >
-            <DropdownMenuLabel className="sp-p-0 sp-font-normal">
-              <div className="sp-flex sp-items-center sp-gap-2 sp-px-1 sp-py-1.5 sp-text-left sp-text-sm">
-                <Avatar className="sp-h-8 sp-w-8 sp-rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="sp-rounded-lg">CN</AvatarFallback>
-                </Avatar>
-                <div className="sp-grid sp-flex-1 sp-text-left sp-text-sm sp-leading-tight">
-                  <span className="sp-truncate sp-font-semibold">
-                    {user.name}
-                  </span>
-                  <span className="sp-truncate sp-text-xs">{user.email}</span>
-                </div>
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
+    <>
+      <SignedOut>
+        <SignInButton mode="modal">
+          <Button>Sign in</Button>
+        </SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <div className="sp-flex sp-items-center sp-gap-3 sp-p-2 sp-rounded-lg sp-bg-zinc-50">
+          <UserButton />
+          <div className="sp-flex sp-flex-col sp-flex-1">
+            <span className="sp-text-sm sp-font-medium sp-text-zinc-900 dark:sp-text-zinc-100">
+              {session?.user?.username || session?.user?.firstName || "User"}
+            </span>
+            <span className="sp-text-xs sp-text-zinc-500 dark:sp-text-zinc-400">
+              {session?.user?.emailAddresses[0]?.emailAddress}
+            </span>
+          </div>
+          {isPro && (
+            <span className="sp-inline-flex sp-items-center sp-h-5 sp-px-2.5 sp-text-[11px] sp-font-medium sp-rounded-md sp-bg-black sp-text-white dark:sp-bg-zinc-900">
+              PRO
+            </span>
+          )}
+        </div>
+      </SignedIn>
+    </>
   );
 }

@@ -9,6 +9,7 @@ export interface BaseField {
   label: string;
   required?: boolean;
   placeholder?: string;
+  description?: string;
 }
 
 export interface TextInputField extends BaseField {
@@ -23,7 +24,7 @@ export interface SelectField extends BaseField {
 export type ProviderField = TextInputField | SelectField;
 
 export interface LLMProvider {
-  id: "smartpost" | "openai" | "anthropic";
+  id: "smartpost-pro" | "openai" | "anthropic";
   name: string;
   description: string;
   fields: ProviderField[];

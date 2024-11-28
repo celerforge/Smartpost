@@ -40,11 +40,11 @@ export function createAIClient(provider: LLMProviderSettings) {
         baseURL: provider.baseUrl,
       });
 
-    case "smartpost":
-      throw new Error("Smartpost provider not supported");
+    case "smartpost-pro":
+      throw new Error("Smartpost provider not supported.");
 
     default:
-      throw new Error("Unsupported provider");
+      throw new Error("Unsupported provider.");
   }
 }
 

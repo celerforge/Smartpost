@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   Form,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -109,6 +110,9 @@ export function ProviderConfigDialog({
                   <FormItem>
                     <FormLabel>{field.label}</FormLabel>
                     <ProviderFormControl field={field} formField={formField} />
+                    {field.description && (
+                      <FormDescription>{field.description}</FormDescription>
+                    )}
                     <FormMessage />
                   </FormItem>
                 )}

@@ -1,6 +1,6 @@
 {
   "name": "smart-post",
-  "displayName": "SmartPost",
+  "displayName": "Smartpost",
   "version": "0.0.1",
   "description": "A basic Plasmo extension.",
   "author": "chaoying",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@ai-sdk/anthropic": "^1.0.2",
     "@ai-sdk/openai": "^1.0.4",
+    "@clerk/chrome-extension": "^2.0.0",
     "@hookform/resolvers": "^3.9.1",
     "@plasmohq/storage": "^1.13.0",
     "@radix-ui/react-avatar": "^1.1.1",
@@ -28,12 +29,14 @@
     "ai": "^4.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "kodepay": "^2.1.5",
     "lucide-react": "^0.460.0",
     "next-themes": "^0.4.3",
     "plasmo": "0.89.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.53.2",
+    "simple-icons": "^13.18.0",
     "sonner": "^1.7.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "3.4.1",
@@ -54,8 +57,14 @@
     "typescript": "5.3.3"
   },
   "manifest": {
+    "key": "$CRX_PUBLIC_KEY",
+    "permissions": [
+      "cookies",
+      "storage"
+    ],
     "host_permissions": [
-      "https://*/*"
+      "http://localhost/*",
+      "$CLERK_FRONTEND_API/*"
     ]
   }
 }

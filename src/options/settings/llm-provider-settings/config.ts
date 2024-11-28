@@ -2,17 +2,11 @@ import type { LLMProvider } from "@/options/settings/llm-provider-settings/types
 
 export const PROVIDERS: LLMProvider[] = [
   {
-    id: "smartpost",
-    name: "SmartPost",
+    id: "smartpost-pro",
+    name: "Smartpost Pro",
     description:
-      "Access OpenAI and Anthropic models through SmartPost Pro subscription",
+      "Access OpenAI and Anthropic models through Smartpost Pro subscription",
     fields: [
-      {
-        name: "apiKey",
-        type: "password",
-        label: "API Key",
-        required: true,
-      },
       {
         name: "model",
         type: "select",
@@ -36,6 +30,8 @@ export const PROVIDERS: LLMProvider[] = [
         label: "API Key",
         required: true,
         placeholder: "Enter your OpenAI API key",
+        description:
+          "Get your API key from https://platform.openai.com/api-keys",
       },
       {
         name: "baseUrl",
@@ -74,6 +70,8 @@ export const PROVIDERS: LLMProvider[] = [
         label: "API Key",
         required: true,
         placeholder: "Enter your Anthropic API key",
+        description:
+          "Get your API key from https://console.anthropic.com/settings/keys",
       },
       {
         name: "model",

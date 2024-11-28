@@ -32,7 +32,6 @@ type GeneralSettingsForm = z.infer<typeof generalSettingsSchema>;
 
 export function GeneralSettings() {
   const { storage, saveSystemPrompt, selectProvider } = useStorage();
-  console.log(storage.settings.general.activeProvider);
   const form = useForm<GeneralSettingsForm>({
     resolver: zodResolver(generalSettingsSchema),
     defaultValues: {
@@ -43,7 +42,6 @@ export function GeneralSettings() {
 
   const onSubmit = async (data: GeneralSettingsForm) => {
     try {
-      console.log("save", data.activeProvider);
       await selectProvider(data.activeProvider as LLMProviderType | null);
       await saveSystemPrompt(data.systemPrompt);
       toast.success("Settings saved successfully.");

@@ -16,7 +16,7 @@ interface BaseLLMProviderSettings {
 }
 
 export interface SmartpostProviderSettings extends BaseLLMProviderSettings {
-  type: "smartpost";
+  type: "smartpost-pro";
 }
 
 export interface OpenAIProviderSettings extends BaseLLMProviderSettings {
@@ -93,8 +93,8 @@ interface StorageContextType {
 const DEFAULT_STORAGE: Storage = {
   settings: {
     providers: {
-      smartpost: {
-        type: "smartpost",
+      "smartpost-pro": {
+        type: "smartpost-pro",
         apiKey: "",
         model: "gpt-4o-mini",
         available: false,
