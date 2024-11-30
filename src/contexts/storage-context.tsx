@@ -1,4 +1,5 @@
 import { SYSTEM_PROMPT } from "@/lib/ai";
+import { SMARTPOST_API_URL } from "@/lib/env";
 import { Storage as PlasmoStorage } from "@plasmohq/storage";
 import {
   createContext,
@@ -13,6 +14,7 @@ interface BaseLLMProviderSettings {
   apiKey?: string;
   model?: string;
   available?: boolean;
+  baseUrl?: string;
 }
 
 export interface SmartpostProviderSettings extends BaseLLMProviderSettings {
@@ -21,12 +23,10 @@ export interface SmartpostProviderSettings extends BaseLLMProviderSettings {
 
 export interface OpenAIProviderSettings extends BaseLLMProviderSettings {
   type: "openai";
-  baseUrl?: string;
 }
 
 export interface AnthropicProviderSettings extends BaseLLMProviderSettings {
   type: "anthropic";
-  baseUrl?: string;
 }
 
 export type LLMProviderSettings =
@@ -97,6 +97,7 @@ const DEFAULT_STORAGE: Storage = {
         type: "smartpost-pro",
         apiKey: "",
         model: "gpt-4o-mini",
+        baseUrl: SMARTPOST_API_URL,
         available: false,
       },
       openai: {

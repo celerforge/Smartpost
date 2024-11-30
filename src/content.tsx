@@ -3,12 +3,12 @@ import cssText from "data-text:@/style.css";
 import "@/style.css";
 
 import type { PlasmoCSConfig } from "plasmo";
-import { createPortal } from "react-dom";
 
 import { XToolBar } from "@/content/x/toolbar";
 import { useFindElement } from "@/hooks/use-find-element";
 import { CLERK_PUBLISHABLE_KEY, EXTENSION_URL } from "@/lib/env";
 import { ClerkProvider } from "@clerk/chrome-extension";
+import { createPortal } from "react-dom";
 import { Toaster } from "sonner";
 
 export const config: PlasmoCSConfig = {
@@ -28,7 +28,6 @@ export default function Content() {
     return target;
   };
   const targetElement = useFindElement(selector);
-
   return (
     <ClerkProvider
       publishableKey={CLERK_PUBLISHABLE_KEY}

@@ -14,7 +14,7 @@ export const PROVIDERS: LLMProvider[] = [
         required: true,
         options: [
           { value: "gpt-4o-mini", label: "GPT-4o Mini" },
-          { value: "claude-3-haiku-20240307", label: "Claude 3 Haiku" },
+          { value: "anthropic/claude-3-haiku", label: "Claude 3 Haiku" },
         ],
       },
     ],

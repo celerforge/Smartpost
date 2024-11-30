@@ -21,8 +21,9 @@ import {
   type LLMProvider,
   type ProviderFormValues,
 } from "@/options/settings/llm-provider-settings/types";
+import { useSession } from "@clerk/chrome-extension";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { generateText } from "ai";
+import { generateText, type LanguageModelV1 } from "ai";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -37,13 +38,14 @@ export function ProviderConfigDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const { storage, saveProviderConfig } = useStorage();
+  const { session } = useSession();
 
   const schema = z.object(
     provider.fields.reduce(
       (acc, field) => ({
         ...acc,
         [field.name]: field.required
-          ? z.string().min(1, `${field.label} is required`)
+          ? z.string().min(1, `${field.label} is required.`)
           : z.string().optional(),
       }),
       {},
@@ -72,14 +74,23 @@ export function ProviderConfigDialog({
 
   const testProvider = async (config: any) => {
     try {
+      if (provider.id === "smartpost-pro" && !session?.user.id) {
+        toast.error(
+          "Smartpost Pro requires a valid user session. Please sign in to continue.",
+        );
+        return false;
+      }
+
       const client = createAIClient({
         ...config,
+        apiKey: session?.user.id,
         type: provider.id,
       });
+
       const model = client(config.model);
 
       await generateText({
-        model,
+        model: model as LanguageModelV1,
         prompt: "test.",
         maxTokens: 1,
       });

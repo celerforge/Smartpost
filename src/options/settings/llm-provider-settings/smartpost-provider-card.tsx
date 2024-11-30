@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { KODEPAY_PLAN_ID, OPTIONS_URL } from "@/lib/env";
-import { kodepay_client } from "@/lib/kodepay";
+import { getKodepayClient } from "@/lib/kodepay";
 import { cn } from "@/lib/utils";
 import { RoutePaths } from "@/options/route";
 import type { LLMProvider } from "@/options/settings/llm-provider-settings/types";
@@ -54,6 +54,7 @@ export function SmartpostProviderCard({
     try {
       setShowUpgradeDialog(false);
       toast.loading("Processing payment...");
+      const kodepay_client = getKodepayClient();
       kodepay_client.register_login_information(
         session.user.publicMetadata["kodePayUserKey"],
       );

@@ -4,8 +4,9 @@ import type {
   Tool,
 } from "@/contexts/storage-context";
 import { createOpenAI } from "@ai-sdk/openai";
-import { generateText } from "ai";
+import { generateText, type LanguageModelV1 } from "ai";
 
+import { createSmartpostPro } from "@/lib/smartpost-pro-provider";
 import { createAnthropic } from "@ai-sdk/anthropic";
 
 export const SYSTEM_PROMPT = `You are a content optimizer. ALWAYS optimize the input content, regardless of length or quality.
@@ -41,7 +42,10 @@ export function createAIClient(provider: LLMProviderSettings) {
       });
 
     case "smartpost-pro":
-      throw new Error("Smartpost provider not supported.");
+      return createSmartpostPro({
+        apiKey: provider.apiKey,
+        baseURL: provider.baseUrl,
+      });
 
     default:
       throw new Error("Unsupported provider.");
@@ -74,7 +78,7 @@ export async function enhancePost(post: string, settings: Settings) {
   const model = getActiveModel(settings);
 
   const { text } = await generateText({
-    model,
+    model: model as LanguageModelV1,
     messages: [
       { role: "system", content: systemPrompt },
       {
@@ -96,7 +100,7 @@ export async function runTool(
   const prompt = tool.prompt.replace(TOOL_INPUT_PLACEHOLDER, `"${input}"`);
   console.debug(`Running tool ${tool.name}: ${prompt}`);
   const { text } = await generateText({
-    model,
+    model: model as LanguageModelV1,
     temperature: 1,
     messages: [{ role: "user", content: prompt }],
   });
