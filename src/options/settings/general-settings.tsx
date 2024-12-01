@@ -31,7 +31,10 @@ const generalSettingsSchema = z.object({
 type GeneralSettingsForm = z.infer<typeof generalSettingsSchema>;
 
 export function GeneralSettings() {
-  const { storage, saveSystemPrompt, selectProvider } = useStorage();
+  const { storage, updateGeneralSettings, isLoading } = useStorage();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   const form = useForm<GeneralSettingsForm>({
     resolver: zodResolver(generalSettingsSchema),
     defaultValues: {
@@ -42,8 +45,10 @@ export function GeneralSettings() {
 
   const onSubmit = async (data: GeneralSettingsForm) => {
     try {
-      await selectProvider(data.activeProvider as LLMProviderType | null);
-      await saveSystemPrompt(data.systemPrompt);
+      await updateGeneralSettings({
+        activeProvider: data.activeProvider as LLMProviderType,
+        systemPrompt: data.systemPrompt,
+      });
       toast.success("Settings saved successfully.");
     } catch (error) {
       toast.error("Failed to save settings. ");
@@ -65,7 +70,7 @@ export function GeneralSettings() {
           name="activeProvider"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>LLM Model Provider</FormLabel>
+              <FormLabel>LLM Model Provider{field.value}</FormLabel>
               <Select
                 value={field.value || "none"}
                 onValueChange={(value) =>

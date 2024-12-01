@@ -62,6 +62,9 @@ export function ProviderConfigDialog({
 
   const onSubmit = async (data: any) => {
     const isAvailable = await testProvider(data);
+    if (provider.id === "smartpost-pro") {
+      data.apiKey = session?.user.id;
+    }
     await saveProviderConfig(provider.id, {
       ...data,
       available: isAvailable,
@@ -80,10 +83,9 @@ export function ProviderConfigDialog({
         );
         return false;
       }
-
       const client = createAIClient({
         ...config,
-        apiKey: session?.user.id,
+        apiKey: config.apiKey,
         type: provider.id,
       });
 

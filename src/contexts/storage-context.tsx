@@ -74,8 +74,9 @@ interface StorageContextType {
   ) => Promise<void>;
 
   // General Settings
-  saveSystemPrompt: (prompt: string) => Promise<void>;
-  selectProvider: (provider: LLMProviderType | null) => Promise<void>;
+  updateGeneralSettings: (
+    updates: Partial<Settings["general"]>,
+  ) => Promise<void>;
 
   // Tool Management
   addTool: (
@@ -187,7 +188,6 @@ class StorageManager {
   async load(): Promise<Storage> {
     const data = await this.storage.get(STORAGE_KEY);
     if (!data) return DEFAULT_STORAGE;
-
     try {
       const stored = JSON.parse(data) as Partial<Storage>;
       return this.mergeWithDefaults(stored, DEFAULT_STORAGE);
@@ -238,24 +238,14 @@ export const StorageProvider = ({ children }: { children: ReactNode }) => {
     setState(newState);
   };
 
-  const saveSystemPrompt = async (prompt: string) => {
+  const updateGeneralSettings = async (
+    updates: Partial<Settings["general"]>,
+  ) => {
     const newState = {
       ...state,
       settings: {
         ...state.settings,
-        general: { ...state.settings.general, systemPrompt: prompt },
-      },
-    };
-    await storage.save(newState);
-    setState(newState);
-  };
-
-  const selectProvider = async (provider: LLMProviderType | null) => {
-    const newState = {
-      ...state,
-      settings: {
-        ...state.settings,
-        general: { ...state.settings.general, activeProvider: provider },
+        general: { ...state.settings.general, ...updates },
       },
     };
     await storage.save(newState);
@@ -316,8 +306,7 @@ export const StorageProvider = ({ children }: { children: ReactNode }) => {
         storage: state,
         isLoading,
         saveProviderConfig,
-        saveSystemPrompt,
-        selectProvider,
+        updateGeneralSettings,
         addTool,
         updateTool,
         deleteTool,

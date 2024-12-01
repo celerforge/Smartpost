@@ -7,10 +7,13 @@ import type { LLMProvider } from "@/options/settings/llm-provider-settings/types
 import { useState } from "react";
 
 export function LLMProviderSettings() {
-  const { storage } = useStorage();
+  const { storage, isLoading } = useStorage();
   const [configuring, setConfiguring] = useState<LLMProvider["id"] | null>(
     null,
   );
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="sp-space-y-6">

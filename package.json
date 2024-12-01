@@ -2,7 +2,7 @@
   "name": "smart-post",
   "displayName": "Smartpost",
   "version": "0.0.1",
-  "description": "A basic Plasmo extension.",
+  "description": "One-click AI tool that turns your ordinary tweets into engaging content.",
   "author": "chaoying",
   "scripts": {
     "dev": "plasmo dev",
@@ -58,14 +58,14 @@
     "typescript": "5.3.3"
   },
   "manifest": {
-    "key": "$CRX_PUBLIC_KEY",
     "permissions": [
       "cookies",
       "storage"
     ],
     "host_permissions": [
       "http://localhost/*",
-      "$CLERK_FRONTEND_API/*"
+      "$CLERK_FRONTEND_API/*",
+      "$PLASMO_PUBLIC_SMARTPOST_API_URL/*"
     ]
   }
 }

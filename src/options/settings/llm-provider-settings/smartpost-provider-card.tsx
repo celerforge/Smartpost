@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useStorage } from "@/contexts/storage-context";
 import { KODEPAY_PLAN_ID, OPTIONS_URL } from "@/lib/env";
 import { getKodepayClient } from "@/lib/kodepay";
 import { cn } from "@/lib/utils";
@@ -31,6 +32,10 @@ export function SmartpostProviderCard({
   isAvailable,
   onConfigure,
 }: SmartpostProviderCardProps) {
+  const { storage, isLoading } = useStorage();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   const { isLoaded, session } = useSession();
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
   const [showPaymentConfirm, setShowPaymentConfirm] = useState(false);
@@ -82,7 +87,7 @@ export function SmartpostProviderCard({
               >
                 • {isAvailable ? "Connected" : "Not Connected"}
               </span>
-              {isPro && (
+              {isPro && !storage.settings.providers[provider.id].model && (
                 <span className="sp-text-sm">
                   Please select a model to continue.
                 </span>
