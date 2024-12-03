@@ -1,7 +1,7 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { StorageProvider } from "@/contexts/storage-context";
-import { CLERK_PUBLISHABLE_KEY, OPTIONS_URL } from "@/lib/env";
+import { CLERK_PUBLISHABLE_KEY, EXTENSION_URL } from "@/lib/env";
 import { AppSidebar } from "@/options/app-sidebar";
 import type { RouteKey } from "@/options/route";
 import { DEFAULT_ROUTE, ROUTES_MAP } from "@/options/route";
@@ -29,9 +29,9 @@ export default function Page() {
   return (
     <ClerkProvider
       publishableKey={CLERK_PUBLISHABLE_KEY}
-      afterSignOutUrl={OPTIONS_URL}
-      signInFallbackRedirectUrl={OPTIONS_URL}
-      signUpFallbackRedirectUrl={OPTIONS_URL}
+      afterSignOutUrl={`${EXTENSION_URL}/options.html`}
+      signInFallbackRedirectUrl={`${EXTENSION_URL}/options.html`}
+      signUpFallbackRedirectUrl={`${EXTENSION_URL}/options.html`}
     >
       <StorageProvider>
         <SidebarProvider>

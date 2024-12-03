@@ -24,9 +24,9 @@ export function NavUser() {
         </SignInButton>
       </SignedOut>
       <SignedIn>
-        <div className="sp-flex sp-items-center sp-gap-3 sp-p-2 sp-rounded-lg sp-bg-zinc-50">
+        <div className="sp-flex sp-items-center sp-gap-3 sp-rounded-lg sp-bg-zinc-50 sp-p-2">
           <UserButton />
-          <div className="sp-flex sp-flex-col sp-flex-1">
+          <div className="sp-flex sp-flex-1 sp-flex-col">
             <span className="sp-text-sm sp-font-medium sp-text-zinc-900 dark:sp-text-zinc-100">
               {session?.user?.username || session?.user?.firstName || "User"}
             </span>
@@ -35,7 +35,7 @@ export function NavUser() {
             </span>
           </div>
           {isPro && (
-            <span className="sp-inline-flex sp-items-center sp-h-5 sp-px-2.5 sp-text-[11px] sp-font-medium sp-rounded-md sp-bg-black sp-text-white dark:sp-bg-zinc-900">
+            <span className="sp-inline-flex sp-h-5 sp-items-center sp-rounded-md sp-bg-black sp-px-2.5 sp-text-[11px] sp-font-medium sp-text-white dark:sp-bg-zinc-900">
               PRO
             </span>
           )}

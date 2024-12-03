@@ -15,8 +15,8 @@ dependencies:
     specifier: ^2.0.2
     version: 2.0.2(zod@3.23.8)
   '@clerk/chrome-extension':
-    specifier: ^2.0.0
-    version: 2.0.0(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^2.0.2
+    version: 2.0.2(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
   '@hookform/resolvers':
     specifier: ^3.9.1
     version: 3.9.1(react-hook-form@7.53.2)
@@ -436,16 +436,16 @@ packages:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  /@clerk/chrome-extension@2.0.0(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-FkoTXQ3WGIbctvxt9UKnys0GLErwCCGO0IIqlmrfgK0GqX72SvfH39PoayRxut/0Hq3/OtZX1ftizkS9rDkz9w==}
+  /@clerk/chrome-extension@2.0.2(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-N3tkcQy4ufvbsFDRk+OxMvPTx9TWiXQ5bPWGsG1Co18i+6DDkji2q7vP+eYjDk8aaHXomSMH0xlmbV5wqAFFag==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
     dependencies:
-      '@clerk/clerk-js': 5.35.0(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
-      '@clerk/clerk-react': 5.17.0(react-dom@18.2.0)(react@18.2.0)
-      '@clerk/shared': 2.17.0(react-dom@18.2.0)(react@18.2.0)
+      '@clerk/clerk-js': 5.36.0(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
+      '@clerk/clerk-react': 5.17.2(react-dom@18.2.0)(react@18.2.0)
+      '@clerk/shared': 2.17.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       webextension-polyfill: 0.10.0
@@ -454,16 +454,16 @@ packages:
       - supports-color
     dev: false
 
-  /@clerk/clerk-js@5.35.0(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-MF9h/J54L3cklY9VTm5nvTjTpIkaJEA7Qa4uS+EKaGY8KOpwhRpLwPBE/Zcu8x5nz365W+gmql0t/Wp5NVZkfg==}
+  /@clerk/clerk-js@5.36.0(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-WRzIzkElgdh2f0GOL7mUktMim8yLrj5O5gbNjc3jV/g/zOdwYM/QtFEpsDfdYuhTGqIKKDi1YK+2uKljv1lkFw==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
     dependencies:
-      '@clerk/localizations': 3.7.0
-      '@clerk/shared': 2.17.0(react-dom@18.2.0)(react@18.2.0)
-      '@clerk/types': 4.35.0
+      '@clerk/localizations': 3.7.1
+      '@clerk/shared': 2.17.1(react-dom@18.2.0)(react@18.2.0)
+      '@clerk/types': 4.35.1
       '@coinbase/wallet-sdk': 4.0.4
       '@emotion/cache': 11.11.0
       '@emotion/react': 11.11.1(@types/react@18.2.48)(react@18.2.0)
@@ -487,29 +487,29 @@ packages:
       - supports-color
     dev: false
 
-  /@clerk/clerk-react@5.17.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-++PSiayBaK877XTjbTZzyqommVlxnFNevxCKsOXbq8+KENAyYkUZ6LJpyoWjfjg1fnKq6oUFax+TwnyOyyxoqw==}
+  /@clerk/clerk-react@5.17.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-mcTR0ejaB0dPlhPWkcBNbQL7zQ/PU5hw9WC2HX+yhEkDynzzOJ2ZwXNbLkDF051JLaP4rwd5qRIT6cfy4A36IQ==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: ^18 || ^19.0.0-0
       react-dom: ^18 || ^19.0.0-0
     dependencies:
-      '@clerk/shared': 2.17.0(react-dom@18.2.0)(react@18.2.0)
-      '@clerk/types': 4.35.0
+      '@clerk/shared': 2.17.1(react-dom@18.2.0)(react@18.2.0)
+      '@clerk/types': 4.35.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tslib: 2.4.1
     dev: false
 
-  /@clerk/localizations@3.7.0:
-    resolution: {integrity: sha512-Vdq1OZ5bbyoDFj9czRV6BesfI02IqynMX9JPyFM+3zo+F+O80CyVGOqdFlwgr7AfCpY+VselC0R9G8YrWxAzGA==}
+  /@clerk/localizations@3.7.1:
+    resolution: {integrity: sha512-+nfrOj+r0QxebXhLPv5gDs1u69L3/NyPOThmscdEQIA45GTzGvxSG4KfKzX5Ae5fi84S3W89mnhFuh8lJ2sQ+Q==}
     engines: {node: '>=18.17.0'}
     dependencies:
-      '@clerk/types': 4.35.0
+      '@clerk/types': 4.35.1
     dev: false
 
-  /@clerk/shared@2.17.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Jn/oBGjGfQQJIiMMf6Y0puC62R0rL1l/gLoPWnO6vNlCBzuFHGcsSTCWWDpmAXfyVwY7wJ7Dcq/B1UEsKeJ8zQ==}
+  /@clerk/shared@2.17.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-JlJxXeaNo9OvRuE8uk52BHC2a9xFtO8084tdu0BItm0gbgYQKXnWh3tm6rb8IO8h2ex7JkU308d9ccisDxgW2Q==}
     engines: {node: '>=18.17.0'}
     requiresBuild: true
     peerDependencies:
@@ -521,7 +521,7 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@clerk/types': 4.35.0
+      '@clerk/types': 4.35.1
       dequal: 2.0.3
       glob-to-regexp: 0.4.1
       js-cookie: 3.0.5
@@ -531,8 +531,8 @@ packages:
       swr: 2.2.5(react@18.2.0)
     dev: false
 
-  /@clerk/types@4.35.0:
-    resolution: {integrity: sha512-sBSYCCIXcwI+JHQRqBtskw10+rQ1NcA9w1G6ndnS48F5C+if6xI9OpYaaDjhhvzLjBeZFydKAOhe35mgC7bmoA==}
+  /@clerk/types@4.35.1:
+    resolution: {integrity: sha512-+okFnYScyXF8/b2LZ97UM98hB3kn7vmgXG/oDbAXC1rl47CWfdYnCfoeHcGZtJMiFv8PoP3sgom86+iPaALQwQ==}
     engines: {node: '>=18.17.0'}
     dependencies:
       csstype: 3.1.1
@@ -545,7 +545,7 @@ packages:
       clsx: 1.2.1
       eventemitter3: 5.0.1
       keccak: 3.0.4
-      preact: 10.25.0
+      preact: 10.25.1
       sha.js: 2.4.11
     dev: false
 
@@ -6740,8 +6740,8 @@ packages:
       posthtml-render: 3.0.0
     dev: false
 
-  /preact@10.25.0:
-    resolution: {integrity: sha512-6bYnzlLxXV3OSpUxLdaxBmE7PMOu0aR3pG6lryK/0jmvcDFPlcXGQAt5DpK3RITWiDrfYZRI0druyaK/S9kYLg==}
+  /preact@10.25.1:
+    resolution: {integrity: sha512-frxeZV2vhQSohQwJ7FvlqC40ze89+8friponWUFeVEkaCfhC6Eu4V0iND5C9CXz8JLndV07QRDeXzH1+Anz5Og==}
     dev: false
 
   /prebuild-install@7.1.2:

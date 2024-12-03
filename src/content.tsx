@@ -31,9 +31,9 @@ export default function Content() {
   return (
     <ClerkProvider
       publishableKey={CLERK_PUBLISHABLE_KEY}
-      afterSignOutUrl={`${EXTENSION_URL}/popup.html`}
-      signInFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
-      signUpFallbackRedirectUrl={`${EXTENSION_URL}/popup.html`}
+      afterSignOutUrl={`${EXTENSION_URL}/options.html`}
+      signInFallbackRedirectUrl={`${EXTENSION_URL}/options.html`}
+      signUpFallbackRedirectUrl={`${EXTENSION_URL}/options.html`}
     >
       {targetElement ? createPortal(<XToolBar />, targetElement) : null}
       {createPortal(<Toaster richColors />, document.body)}
