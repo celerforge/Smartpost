@@ -14,15 +14,9 @@ import {
 import { NavMain } from "@/options/nav-main";
 import { NavUser } from "@/options/nav-user";
 import { ROUTES } from "@/options/route";
-import { useSession } from "@clerk/chrome-extension";
 import { ExternalLink } from "lucide-react";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { isLoaded, session } = useSession();
-  const isPro =
-    isLoaded &&
-    session?.user?.publicMetadata?.["subscription"]?.["endTime"] >
-      Math.floor(Date.now() / 1000);
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
