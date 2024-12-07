@@ -22,6 +22,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About Smartpost
 ![Smartpost Screenshot](https://github.com/user-attachments/assets/bb6930f9-b50f-4fb2-bf58-e3596e3f470f)
+![F2 GIF Optimizer (1)](https://github.com/user-attachments/assets/d0aa3bd0-b334-42eb-9b85-c0a914539cf6)
+![f1](https://github.com/user-attachments/assets/93ddf533-99cd-4733-85ea-819bab664cdb)
+
 
 Smartpost is a Chrome extension that helps you create better tweets. With just one click, it suggests an improved version of your tweet while keeping your original message intact.
 
