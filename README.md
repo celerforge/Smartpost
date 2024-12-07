@@ -12,9 +12,9 @@
     <br />
     <a href="https://chromewebstore.google.com/detail/Smartpost/dkflielmbpjnpgjhcimnhoinkifiikik">Chrome Store</a>
     ·
-    <a href="https://github.com/celerforge/Smartpost/Issues">Report Bug</a>
+    <a href="https://github.com/celerforge/Smartpost/issues">Report Bug</a>
     ·
-    <a href="https://github.com/celerforge/Smartpost/Issues">Request Feature</a>
+    <a href="https://github.com/celerforge/Smartpost/issues">Request Feature</a>
   </p>
 </div>
 
