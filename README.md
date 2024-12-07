@@ -1,33 +1,80 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/celerforge/smartpost/">
+    <img src="https://github.com/user-attachments/assets/346d03ca-aa59-4bde-ba1e-1c6ce16776d9" alt="Logo" width="80" height="80">
+  </a>
 
+  <h3 align="center">Smartpost</h3>
+
+  <p align="center">
+    An awesome README template to jumpstart your projects!
+    <br />
+    <a href="https://chromewebstore.google.com/detail/smartpost/dkflielmbpjnpgjhcimnhoinkifiikik">Chrome Store</a>
+    ·
+    <a href="https://github.com/celerforge/smartpost/Issues">Report Bug</a>
+    ·
+    <a href="https://github.com/celerforge/smartpost/Issues">Request Feature</a>
+  </p>
+</div>
+
+
+<!-- ABOUT THE PROJECT -->
+## About Smartpost
+![Smartpost Screenshot](https://github.com/user-attachments/assets/bb6930f9-b50f-4fb2-bf58-e3596e3f470f)
+
+Smartpost is a Chrome extension that helps you create better tweets. With just one click, it suggests an improved version of your tweet while keeping your original message intact.
+
+What makes Smartpost different:
+* **Customizable**: Set your own prompts to generate tweets in any style you want - professional, casual, humorous, or anything in between
+* **Simple**: One click to get an AI-enhanced version of your tweet
+* **Fast**: Instantly see the improved version, use it if you like it
+* **Non-intrusive**: Works right within Twitter's interface - no need to switch between apps
+
+The best part? You can customize how Smartpost works. Want tweets that always include emojis? Or prefer a more professional tone? Just update the prompt in settings, and Smartpost will follow your style.
+
+We're always improving Smartpost based on user feedback. Have an idea? Open an issue or create a pull request - we'd love to hear from you.
+
+<!-- GETTING STARTED -->
 ## Getting Started
 
-First, run the development server:
+Here's how to set up and use Smartpost to enhance your tweets.
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+### Installation
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+1. Install Smartpost from the [Chrome Web Store](https://chromewebstore.google.com/detail/smartpost/dkflielmbpjnpgjhcimnhoinkifiikik)
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+2. Click "Add to Chrome" to install the extension
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+### Configuration
 
-## Making production build
+1. Click the Smartpost icon in your browser's extension toolbar and select "Settings"
 
-Run the following:
+2. In Settings, click "LLM Provider" and follow these steps:
+   - Click "OpenAI Configure"
+   - Get your API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+   - Enter your API key and click Save
 
-```bash
-pnpm build
-# or
-npm run build
-```
+3. Go back to "General" settings and select your saved provider in the "LLM Model Provider" dropdown
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
+4. (Optional) Customize your tools:
+   - Go to the "Tools" section
+   - Click the "+" icon in the top right to add a new tool
+   - Enter a name for your tool
+   - Write your custom prompt (use {post} to reference the current tweet content)
+   - Save your changes
 
-## Submit to the webstores
+5. Refresh your Twitter/X page to activate the changes
 
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+### Usage
+
+Once configured, you'll see the Smartpost button near the tweet compose box. Click it to get an AI-enhanced version of your tweet.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+## License
+
+Distributed under the GNU GENERAL PUBLIC License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
