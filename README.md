@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/celerforge/smartpost/">
+  <a href="https://github.com/celerforge/Smartpost/">
     <img src="https://github.com/user-attachments/assets/346d03ca-aa59-4bde-ba1e-1c6ce16776d9" alt="Logo" width="80" height="80">
   </a>
 
@@ -10,11 +10,11 @@
   <p align="center">
     An awesome README template to jumpstart your projects!
     <br />
-    <a href="https://chromewebstore.google.com/detail/smartpost/dkflielmbpjnpgjhcimnhoinkifiikik">Chrome Store</a>
+    <a href="https://chromewebstore.google.com/detail/Smartpost/dkflielmbpjnpgjhcimnhoinkifiikik">Chrome Store</a>
     ·
-    <a href="https://github.com/celerforge/smartpost/Issues">Report Bug</a>
+    <a href="https://github.com/celerforge/Smartpost/Issues">Report Bug</a>
     ·
-    <a href="https://github.com/celerforge/smartpost/Issues">Request Feature</a>
+    <a href="https://github.com/celerforge/Smartpost/Issues">Request Feature</a>
   </p>
 </div>
 
@@ -45,7 +45,7 @@ Here's how to set up and use Smartpost to enhance your tweets.
 
 ### Installation
 
-1. Install Smartpost from the [Chrome Web Store](https://chromewebstore.google.com/detail/smartpost/dkflielmbpjnpgjhcimnhoinkifiikik)
+1. Install Smartpost from the [Chrome Web Store](https://chromewebstore.google.com/detail/Smartpost/dkflielmbpjnpgjhcimnhoinkifiikik)
 
 2. Click "Add to Chrome" to install the extension
 
